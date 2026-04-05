@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Invitation | Fayaz & Noor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-light: #f5e6d3;
+            --bg-dark: #ead7c3;
+            --card-bg: #f3e1cc;
+            --text-dark: #5c4033;
+            --accent-maroon: #6b1f2b;
+            --gold-border: #d2b48c;
+            --shadow: rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, var(--bg-light) 0%, var(--bg-dark) 100%);
+            font-family: 'Inter', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+            padding: 20px;
+        }
+
+        /* Paper Texture Overlay */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0.4;
+            pointer-events: none;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3e%3Cfilter id='noiseFilter'%3e%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3e%3C/filter%3e%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3e%3C/svg%3e");
+            z-index: 1;
+        }
+
+        /* Ornamental Designs */
+        .ornament {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 40px;
+            z-index: 2;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' fill='%23d2b48c'%3e%3Cpath d='M0 10 Q 25 0 50 10 Q 75 20 100 10 L 100 12 Q 75 22 50 12 Q 25 2 0 12 Z'/%3e%3Ccircle cx='50' cy='10' r='2'/%3e%3C/svg%3e");
+            background-repeat: no-repeat;
+            background-size: contain;
+        }
+        .ornament-top { top: 20px; }
+        .ornament-bottom { bottom: 20px; transform: translateX(-50%) rotate(180deg); }
+
+        /* Floral Decorations */
+        .floral {
+            position: fixed;
+            width: 180px;
+            height: 180px;
+            background-image: url('https://www.transparentpng.com/download/floral/peach-flowers-watercolor-png-images-free-10.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            opacity: 0.8;
+            z-index: 2;
+        }
+        .tl { top: -20px; left: -20px; }
+        .tr { top: -20px; right: -20px; transform: scaleX(-1); }
+        .bl { bottom: -20px; left: -20px; transform: scaleY(-1); }
+        .br { bottom: -20px; right: -20px; transform: scale(-1); }
+
+        /* Main Card */
+        .invitation-card {
+            width: 100%;
+            max-width: 360px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px var(--shadow);
+            padding: 25px 20px;
+            text-align: center;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .header-section h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 32px;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0 18px;
+        }
+        .divider::before, .divider::after {
+            content: "";
+            height: 1px;
+            width: 40px;
+            background: var(--gold-border);
+        }
+        .divider span {
+            margin: 0 10px;
+            color: var(--gold-border);
+            font-size: 14px;
+        }
+
+        .couple-names {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            color: var(--accent-maroon);
+            margin-bottom: 20px;
+            line-height: 1.4;
+            letter-spacing: 1px;
+        }
+        .couple-names span { display: block; }
+        .heart { font-size: 20px; margin: 5px 0; }
+
+        /* Countdown */
+        .countdown-box {
+            background: var(--card-bg);
+            border: 1px solid var(--gold-border);
+            border-radius: 12px;
+            padding: 12px;
+            margin-bottom: 18px;
+            font-size: 15px;
+            color: var(--text-dark);
+        }
+        .countdown-box span {
+            color: var(--accent-maroon);
+            font-weight: bold;
+        }
+
+        /* Venue Box */
+        .venue-section {
+            border: 1px solid var(--gold-border);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+        .venue-title {
+            color: var(--accent-maroon);
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        .venue-details {
+            color: var(--text-dark);
+            font-size: 14px;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        /* Buttons */
+        .btn-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 30px;
+            border: none;
+            color: white;
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .btn:active { transform: scale(0.98); }
+
+        .btn-wedding { background: linear-gradient(to right, #f4a261, #e76f51); }
+        .btn-reception { background: linear-gradient(to right, #9d4edd, #7b2cbf); }
+        .btn-call { background: linear-gradient(to right, #52b788, #2d6a4f); }
+
+        .btn-view {
+            margin-top: 15px;
+            background: var(--card-bg);
+            border: 1px solid var(--gold-border);
+            color: var(--text-dark);
+            padding: 12px;
+            border-radius: 30px;
+            width: 100%;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ornament ornament-top"></div>
+    
+    <div class="floral tl"></div>
+    <div class="floral tr"></div>
+    <div class="floral bl"></div>
+    <div class="floral br"></div>
+
+    <div class="invitation-card">
+        <header class="header-section">
+            <h1>Wedding Invitation</h1>
+            <div class="divider"><span>★</span></div>
+        </header>
+
+        <div class="couple-names">
+            <span>FAYAZ</span>
+            <div class="heart">❤️</div>
+            <span>NOOR - E - CHASHMI</span>
+        </div>
+
+        <div class="countdown-box">
+            Wedding in: <span>352</span>d <span>14</span>h <span>27</span>m
+        </div>
+
+        <div class="venue-section">
+            <div class="venue-title">Wedding Venue</div>
+            <p class="venue-details">Royal Palace Grand Ballroom,<br>Main Heritage Road, City Center</p>
+            
+            <div class="venue-title">Reception Venue</div>
+            <p class="venue-details">The Emerald Garden,<br>South Avenue, Parkside District</p>
+        </div>
+
+        <div class="btn-stack">
+            <button class="btn btn-wedding">Wedding Location</button>
+            <button class="btn btn-reception">Reception Location</button>
+            <button class="btn btn-call">Call Now</button>
+        </div>
+
+        <button class="btn-view">View Card Details</button>
+    </div>
+
+    <div class="ornament ornament-bottom"></div>
+
+</body>
+</html>
